@@ -113,8 +113,8 @@ export class RegisterFormComponent {
 
     const addOnsPrice = getTrueControlsNames(this.addOnsFormGroup.controls)
       .map((addOn) => new BigNumber(this.prices[addOn][pricePeriod]))
-      .reduce((previousValue: BigNumber, currentValue: BigNumber) => previousValue.add(currentValue), new BigNumber(0));
+      .reduce((previousValue: BigNumber, currentValue: BigNumber) => previousValue.plus(currentValue), new BigNumber(0));
 
-    return planPrice.add(addOnsPrice);
+    return planPrice.plus(addOnsPrice);
   }
 }
