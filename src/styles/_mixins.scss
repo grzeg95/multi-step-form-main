@@ -1,0 +1,5 @@
+@import 'variables';
+
+@mixin from-tablet {
+  @media (min-width: $tablet) { @content; }
+}
