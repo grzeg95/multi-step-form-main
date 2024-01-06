@@ -1,0 +1,307 @@
+@import 'mixins';
+@import 'variables';
+
+.stepper {
+  @include from-tablet {
+    display: flex;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 947px;
+    justify-content: space-around;
+    background: $white;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px 0 $light-gray;
+  }
+}
+
+.stepper-header {
+  display: flex;
+  gap: 16px;
+  background-image: url(/assets/images/bg-sidebar-mobile.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 173px;
+  justify-content: center;
+  padding-top: 32px;
+
+  .stepper-header-item {
+
+    cursor: pointer;
+    height: 33px;
+    width: 33px;
+
+    &.active {
+      .number {
+        color: $marine-blue;
+        border-color: $light-blue;
+        background-color: $light-blue;
+      }
+    }
+
+    .number {
+      width: 33px;
+      height: 33px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $white;
+      border: solid 1px $white;
+      border-radius: 100%;
+      font-weight: 500;
+    }
+
+    .info {
+      display: none;
+
+      .step {
+        font-size: 0.8rem;
+        color: $white;
+        text-transform: uppercase;
+      }
+
+      .description {
+        color: $white;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      @include from-tablet {
+        display: block;
+        margin-left: 16px;
+      }
+    }
+
+    @include from-tablet {
+      display: flex;
+      height: auto;
+      width: auto;
+    }
+  }
+
+  @include from-tablet {
+    background-image: url(/assets/images/bg-sidebar-desktop.svg);
+    width: 100%;
+    max-width: 274px;
+    align-self: stretch;
+    flex-shrink: initial;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    height: auto;
+    padding: 40px 32px;
+    justify-content: flex-start;
+    gap: 32px;
+  }
+}
+
+.steps {
+  width: 100%;
+
+  .step {
+
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: -73px;
+    background: $white;
+    padding: 35px 26px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px 0 hsl(229, 24%, 87%);
+
+    .body {
+
+      max-width: 100%;
+
+      .header {
+        max-width: 100%;
+        margin-bottom: 24px;
+
+        .title {
+          font-weight: bold;
+          font-size: 1.5rem;
+          color: $marine-blue;
+          margin-bottom: 16px;
+        }
+        .description {
+          color: $cool-gray;
+          line-height: 1.5rem;
+        }
+
+        @include from-tablet {
+          max-width: 450px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+
+      .plans {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .plan {
+          @include from-tablet {
+            width: 100%;
+            max-width: 137px;
+          }
+        }
+
+        @include from-tablet {
+          flex-direction: row;
+          justify-content: space-around;
+        }
+      }
+
+      .switch {
+
+        margin-top: 24px;
+
+        @include from-tablet {
+          margin-top: 32px;
+          margin-bottom: 32px;
+        }
+      }
+
+      .summary {
+
+        padding: 20px 15px;
+        background-color: $pale-blue-gray;
+        border-radius: 6px;
+
+        .selected-plan {
+
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .name {
+            color: $marine-blue;
+            font-weight: 700;
+            font-size: 15px;
+          }
+          .price {
+            color: $marine-blue;
+            font-weight: 700;
+          }
+        }
+
+        .adds-on {
+
+          display: flex;
+          justify-content: space-between;
+          flex-direction: column;
+
+          .add-on {
+
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+
+            .add-on-title {
+              color: $cool-gray;
+            }
+            .add-on-price {
+              color: $marine-blue;
+            }
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+
+      .total {
+
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 15px 0;
+        align-items: center;
+
+        .title {
+          color: $cool-gray;
+          font-size: 14px;
+        }
+
+        .price {
+          font-weight: 500;
+          color: $purplish-blue;
+          font-size: 18px;
+        }
+      }
+
+      .thank-you {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          width: 55px;
+          height: 55px;
+          margin-bottom: 26px;
+
+          @include from-tablet {
+            width: 80px;
+            height: 80px;
+          }
+        }
+
+        .title {
+          font-size: 20px;
+          font-weight: 700;
+          margin-bottom: 16px;
+          color: $marine-blue;
+        }
+
+        .description {
+          color: $cool-gray;
+          text-align: center;
+        }
+      }
+
+      @include from-tablet {
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+      }
+    }
+
+    .actions {
+      max-width: 100%;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      padding: 16px;
+      background: $white;
+
+      @include from-tablet {
+        position: static;
+        padding: 0;
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @include from-tablet {
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: -0;
+      border-radius: 0;
+      box-shadow: none;
+      min-height: 510px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+}

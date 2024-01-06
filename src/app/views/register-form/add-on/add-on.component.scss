@@ -1,0 +1,95 @@
+@import 'mixins';
+@import 'variables';
+
+label {
+
+  margin-bottom: 12px;
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  border: solid 1px $light-gray;
+  padding: 15px;
+  border-radius: 0.5rem;
+  transition: 0.4s;
+  justify-content: space-between;
+  align-items: center;
+
+  input {
+    display: none;
+
+    &:checked + .checker {
+      background-color: $marine-blue;
+
+      &::before {
+        content: "";
+        background-image: url(/assets/images/icon-checkmark.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+    }
+  }
+
+  .checker {
+    width: 20px;
+    height: 20px;
+    border: solid 1px $light-gray;
+    cursor: pointer;
+    transition: .1s;
+    border-radius: 3px;
+    position: relative;
+    margin-right: 15px;
+    flex: none;
+
+    &::before {
+      height: 10px;
+      width: 13.333333333333334px;
+      position: absolute;
+      top: 4px;
+      left: 2px;
+      transition: 0.1s;
+    }
+  }
+
+  &:hover {
+    border-color: $purplish-blue;
+    background-color: $grayish-blue;
+  }
+
+  &.checked {
+    border-color: $purplish-blue;
+    background-color: $grayish-blue;
+  }
+
+  .content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    .price-label {
+      .name {
+        color: $marine-blue;
+        font-weight: bold;
+        margin-bottom: 6px;
+      }
+      .description {
+        color: $cool-gray;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+
+    .price {
+      color: $marine-blue;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+  }
+
+  @include from-tablet {
+    padding: 21px 23px;
+  }
+}
+
+

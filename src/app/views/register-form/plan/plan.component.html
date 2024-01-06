@@ -1,0 +1,21 @@
+<label [class.checked]="input.checked">
+
+  <input
+    type="radio"
+    [name]="name"
+    [value]="value"
+    (blur)="onTouched()"
+    [style.display]="false"
+    #input
+  />
+
+  <img class="icon" [src]="icon" [alt]="priceName + 'Icon'"/>
+
+  <div class="description">
+    <div class="price-name">{{ priceName }}</div>
+    <div class="price">${{ prices[period ? 'yearly' : 'monthly'] }}/{{ period ? 'yr' : 'mo' }}</div>
+    @if(period) {
+      <div class="price-yearly-description">{{ yearlyDiscountDescription }}</div>
+    }
+  </div>
+</label>

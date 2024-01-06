@@ -1,0 +1,251 @@
+<app-stepper #stepper class="stepper">
+
+  <app-stepper-header class="stepper-header" #appStepHeader [customTemplate]="customHeaderTemplate" />
+
+  <ng-template #customHeaderTemplate>
+    @for (headerLabelTemplate of appStepHeader.labelTemplates; let i = $index; track headerLabelTemplate) {
+      <div class="stepper-header-item" [class.active]="i === stepper.step()" (click)="stepper.setStep(i)">
+        <div class="number">{{ i + 1 }}</div>
+        <div class="info">
+          <div class="step">Step {{ i + 1 }}</div>
+          <div class="description">
+            <ng-container *ngTemplateOutlet="headerLabelTemplate!"/>
+          </div>
+        </div>
+      </div>
+    }
+  </ng-template>
+
+  <app-steps class="steps">
+    <app-step [stepControl]="personalInfoFormGroup">
+
+      <ng-template appStepLabel>Your info</ng-template>
+
+      <div class="step">
+
+        <div class="body">
+          <div class="header">
+            <div class="title">Personal info</div>
+            <div class="description">Please provide your name, email address, and phone number.</div>
+          </div>
+
+          <form [formGroup]="personalInfoFormGroup">
+
+            <app-input [formControl]="nameFormControl" label="Name" placeholder="e.g. Stephen King" [small]="deviceService.screensSize() !== 'desktop'">
+              @if (nameFormControl.errors && nameFormControl.touched) {
+                @if (nameFormControl.errors['required']) {
+                  <span>This field is required</span>
+                }
+              }
+            </app-input>
+
+            <app-input [formControl]="emailFormControl" label="Email Adress" placeholder="e.g. stephenking@lorem.com" [small]="deviceService.screensSize() !== 'desktop'">
+              @if (emailFormControl.errors && emailFormControl.touched) {
+                @if (emailFormControl.errors['required']) {
+                  <span>This field is required</span>
+                }
+                @if (emailFormControl.errors['email']) {
+                  <span>Provide email address</span>
+                }
+              }
+            </app-input>
+
+            <app-input [formControl]="phoneFormControl" label="Phone Number" placeholder="e.g. +1 234 567 890" [small]="deviceService.screensSize() !== 'desktop'">
+              @if (phoneFormControl.errors && phoneFormControl.touched) {
+                @if (phoneFormControl.errors['required']) {
+                  <span>This field is required</span>
+                }
+                @if (phoneFormControl.errors['phone']) {
+                  <span>Provide phone address</span>
+                }
+              }
+            </app-input>
+
+          </form>
+        </div>
+
+        <div class="actions">
+          <div class="flex-spacer"></div>
+          <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
+        </div>
+      </div>
+
+    </app-step>
+
+    <app-step>
+
+      <ng-template appStepLabel>Select plan</ng-template>
+
+      <div class="step">
+
+        <div class="body">
+          <div class="header">
+            <div class="title">Select your plan</div>
+            <div class="description">You have the option of monthly or yearly billing.</div>
+          </div>
+
+          <div class="plans">
+
+            <app-plan
+              class="plan"
+              [formControl]="plansFormControl"
+              [icon]="'/assets/images/icon-arcade.svg'"
+              [period]="periodFormControl.value"
+              [prices]="prices['arcade']"
+              [yearlyDiscountDescription]="'2 months free'"
+              [priceName]="'Arcade'"
+              [value]="'arcade'"
+            />
+
+            <app-plan
+              class="plan"
+              [formControl]="plansFormControl"
+              [icon]="'/assets/images/icon-advanced.svg'"
+              [period]="periodFormControl.value"
+              [prices]="prices['advanced']"
+              [yearlyDiscountDescription]="'2 months free'"
+              [priceName]="'Advanced'"
+              [value]="'advanced'"
+            />
+
+            <app-plan
+              class="plan"
+              [formControl]="plansFormControl"
+              [icon]="'/assets/images/icon-pro.svg'"
+              [period]="periodFormControl.value"
+              [prices]="prices['pro']"
+              [yearlyDiscountDescription]="'2 months free'"
+              [priceName]="'Pro'"
+              [value]="'pro'"
+            />
+          </div>
+
+          <app-switch
+            class="switch"
+            trueTitle="Yearly"
+            falseTitle="Monthly"
+            [formControl]="form.controls.period"/>
+        </div>
+
+        <div class="actions">
+          <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
+          <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
+        </div>
+      </div>
+    </app-step>
+
+    <app-step>
+
+      <ng-template appStepLabel>Add-ons</ng-template>
+
+      <div class="step">
+        <div class="body">
+          <div class="header">
+            <div class="title">Pick add-ons</div>
+            <div class="description">Add-ons help enhance your gaming experience.</div>
+          </div>
+
+          <app-add-on
+            [period]="periodFormControl.value"
+            [formControl]="addOnsFormGroup.controls['online-services']"
+            [name]="'Online services'"
+            [description]="'Access to multiplayer games'"
+            [prices]="prices['online-services']"/>
+
+          <app-add-on
+            [period]="periodFormControl.value"
+            [formControl]="addOnsFormGroup.controls['larger-storage']"
+            [name]="'Larger storage'"
+            [description]="'Extra 1TB of cloud save'"
+            [prices]="prices['larger-storage']"/>
+
+          <app-add-on
+            [period]="periodFormControl.value"
+            [formControl]="addOnsFormGroup.controls['customizable-profile']"
+            [name]="'Customizable Profile'"
+            [description]="'Custom theme on your profile'"
+            [prices]="prices['customizable-profile']"/>
+        </div>
+
+        <div class="actions">
+          <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
+          <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
+        </div>
+      </div>
+
+    </app-step>
+
+    <app-step>
+
+      <ng-template appStepLabel>Summary</ng-template>
+
+      @if(isVisibleThankYou()) {
+        <div class="step" [style.justify-content]="'center'">
+          <div class="body">
+            <div class="thank-you">
+              <img src="/assets/images/icon-thank-you.svg" />
+              <div class="title">Thank you!</div>
+              <div class="description">
+                Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at support&#64;loremgaming.com.
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+      @else {
+        <div class="step">
+
+          <div class="body">
+
+            <div class="header">
+              <div class="title">Finishing up</div>
+              <div class="description">Double-check everything looks OK before confirming.</div>
+            </div>
+
+            <div class="summary">
+              <div class="selected-plan">
+                <div class="plan-selected-name">
+                  <div>{{ plansFormControl.value | titlecase }}({{ periodFormControl.value ? 'Yearly' : 'Monthly' }})</div>
+                  <a (click)="stepper.setStep(1)">Change</a>
+                </div>
+                <div class="price">${{ prices[form.controls.plans.value || ''][periodFormControl.value ? 'yearly' : 'monthly'] }}/{{ periodFormControl.value ? 'yr' : 'mo' }}
+                </div>
+              </div>
+
+              @if (addOnsFormGroup.controls | trueControls; as addOns) {
+
+                @if (addOns.length) {
+                  <div class="adds-on">
+                    <hr />
+
+                    @for (addOn of addOns; track addOn) {
+                      <div class="add-on">
+                        <div class="add-on-title">
+                          {{ names[addOn] }}
+                        </div>
+                        <div class="add-on-price">
+                          +${{ prices[addOn][periodFormControl.value ? 'yearly' : 'monthly'] }}/{{ periodFormControl.value ? 'yr' : 'mo' }}
+                        </div>
+                      </div>
+                    }
+                  </div>
+                }
+              }
+            </div>
+
+            <div class="total">
+              <span class="title">Total (per {{periodFormControl.value ? 'year' : 'month'}})</span>
+              <span class="price">${{totalPrice()}}/{{ periodFormControl.value ? 'yr' : 'mo' }}</span>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
+            <button app-button-flat (click)="isVisibleThankYou.set(true)" [small]="deviceService.screensSize() !== 'desktop'">Confirm</button>
+          </div>
+        </div>
+      }
+    </app-step>
+  </app-steps>
+
+</app-stepper>

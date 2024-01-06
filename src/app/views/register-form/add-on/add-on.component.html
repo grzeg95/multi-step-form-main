@@ -1,0 +1,20 @@
+<label [class.checked]="input.checked">
+
+  <input
+    type="checkbox"
+    [value]="value"
+    (blur)="onTouched()"
+    #input
+  />
+  <div class="checker"></div>
+
+  <div class="content">
+    <div class="price-label">
+      <div class="name">{{ name }}</div>
+      <div class="description">{{ description }}</div>
+    </div>
+    <div class="price">+${{ prices[period ? 'yearly' : 'monthly'] }}/{{ period ? 'yr' : 'mo' }}</div>
+  </div>
+</label>
+
+

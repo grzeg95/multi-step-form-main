@@ -1,0 +1,16 @@
+@if (falseTitle) {
+  <div class="option" [class.selected]="!input.checked">{{ falseTitle }}</div>
+}
+
+<label>
+  <input
+    type="checkbox"
+    (blur)="onTouched()"
+    #input
+  />
+  <div class="slider"></div>
+</label>
+
+@if (trueTitle) {
+  <div class="option" [class.selected]="input.checked">{{ trueTitle }}</div>
+}
