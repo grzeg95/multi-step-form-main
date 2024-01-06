@@ -1,0 +1,15 @@
+<label [for]="input" class="label">
+  <div>{{ label }}</div>
+  <div class="error">
+    <ng-content/>
+  </div>
+</label>
+<input
+  #input
+  [class.disabled]="isDisabled"
+  [value]="value"
+  (input)="handleOnInput($event)"
+  type="text"
+  [placeholder]="placeholder"
+  (blur)="onTouched()"
+>
