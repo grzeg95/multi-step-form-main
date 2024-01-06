@@ -3,3 +3,20 @@
 @mixin from-tablet {
   @media (min-width: $tablet) { @content; }
 }
+
+@mixin button() {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  padding: 17px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: .1s;
+
+  &.small {
+    padding: 15px 17px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+}
