@@ -44,6 +44,11 @@
   }
 
   &.small {
+    input {
+      padding: 14px 17px;
+      border-radius: 4px;
+    }
+
     .label {
       margin-bottom: 3px;
     }
