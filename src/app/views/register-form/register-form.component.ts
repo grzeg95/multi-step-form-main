@@ -50,6 +50,8 @@ import {SwitchComponent} from './switch/switch.component';
 })
 export class RegisterFormComponent {
 
+  @ViewChild('stepper') stepper!: StepperComponent;
+
   form = new FormGroup({
     personalInfo: new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -105,6 +107,7 @@ export class RegisterFormComponent {
     effect(() => {
       this.stepperComponent.step();
       this.isVisibleThankYou.set(false);
+      this.stepper.scrollToTop();
     }, {allowSignalWrites: true});
 
   }

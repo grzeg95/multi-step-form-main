@@ -9,6 +9,8 @@
 }
 
 .stepper {
+  overflow: auto;
+
   @include from-tablet {
     display: flex;
     background: $white;

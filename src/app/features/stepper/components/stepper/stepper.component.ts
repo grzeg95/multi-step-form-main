@@ -5,6 +5,7 @@ import {
   Component,
   ContentChild,
   effect,
+  ElementRef,
   Signal,
   signal,
   TemplateRef
@@ -65,7 +66,9 @@ export class StepperComponent implements AfterContentInit, AfterContentChecked {
     }
   }
 
-  constructor() {
+  constructor(
+    private el: ElementRef
+  ) {
     effect(() => {
       this.stepsComponent.stepComponents.get(this._previousStep())?.hide();
       const currentStepComponent = this.stepsComponent.stepComponents.get(this.step());
@@ -89,5 +92,9 @@ export class StepperComponent implements AfterContentInit, AfterContentChecked {
 
   ngAfterContentChecked(): void {
     this.currentStepActionsRef.set(this.currentStepComponent()?.stepActionsDirective?.templateRef || null);
+  }
+
+  scrollToTop() {
+    (this.el.nativeElement as HTMLElement).scrollTo({behavior: 'smooth', top: 0});
   }
 }
