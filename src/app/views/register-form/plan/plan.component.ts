@@ -1,14 +1,20 @@
-import {NgOptimizedImage} from '@angular/common';
-import {AfterViewInit, Component, ElementRef, forwardRef, inject, Input, Renderer2, ViewChild} from '@angular/core';
-import {FormsModule, NG_VALUE_ACCESSOR, RadioControlValueAccessor, ReactiveFormsModule} from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  forwardRef,
+  HostBinding,
+  HostListener,
+  Input,
+  ViewChild
+} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-plan',
   standalone: true,
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NgOptimizedImage
+    ReactiveFormsModule
   ],
   templateUrl: './plan.component.html',
   styleUrl: './plan.component.scss',
@@ -18,10 +24,12 @@ import {FormsModule, NG_VALUE_ACCESSOR, RadioControlValueAccessor, ReactiveForms
       useExisting: forwardRef(() => PlanComponent),
       multi: true,
     }
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlanComponent extends RadioControlValueAccessor implements AfterViewInit {
+export class PlanComponent implements ControlValueAccessor {
 
+  @Input({required: true}) value!: string;
   @Input({required: true}) yearlyDiscountDescription!: string;
   @Input({required: true}) prices!: {monthly: string, yearly: string};
   @Input({required: true}) period!: boolean | null;
@@ -29,16 +37,39 @@ export class PlanComponent extends RadioControlValueAccessor implements AfterVie
   @Input({required: true}) icon!: string;
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
-  renderer = inject(Renderer2);
-  state = false;
+  @HostBinding('class.checked') checked!: boolean;
+  @HostBinding('class.disabled') isDisabled!: boolean;
 
-  override writeValue(value: any): void {
-    super.writeValue(value);
-    this.state = value === this.value;
-    this.input && this.renderer.setProperty(this.input.nativeElement, 'checked', this.state);
+  @HostListener('click')
+  handleOnClick() {
+
+    if (this.isDisabled) {
+      return;
+    }
+
+    this.checked = !this.checked;
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => this.input && this.renderer.setProperty(this.input.nativeElement, 'checked', this.state))
+  onChange(): void {
   }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  onTouched(): void {
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
+
+  writeValue(obj: any): void {
+    this.checked = obj;
+  }
+
 }

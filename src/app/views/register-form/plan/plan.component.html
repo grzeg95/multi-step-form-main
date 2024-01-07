@@ -1,11 +1,10 @@
-<label [class.checked]="input.checked">
+<label>
 
   <input
     type="radio"
-    [name]="name"
+    [checked]="checked"
+    [disabled]="isDisabled"
     [value]="value"
-    (blur)="onTouched()"
-    [style.display]="false"
     #input
   />
 
