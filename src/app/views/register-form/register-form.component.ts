@@ -1,5 +1,5 @@
 import {NgTemplateOutlet, TitleCasePipe} from '@angular/common';
-import {Component, effect, signal, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, effect, signal, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import BigNumber from 'bignumber.js';
 import {ButtonFlatComponent} from '../../features/button-flat/button-flat.component';
@@ -45,7 +45,8 @@ import {SwitchComponent} from './switch/switch.component';
     StepActionsDirective
   ],
   templateUrl: './register-form.component.html',
-  styleUrl: './register-form.component.scss'
+  styleUrl: './register-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterFormComponent {
 
