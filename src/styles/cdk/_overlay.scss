@@ -1,0 +1,12 @@
+@import '@angular/cdk/overlay/index';
+
+$overlay-container-z-index: 1000 !default;
+$overlay-z-index: 1000 !default;
+$overlay-backdrop-z-index: 1000 !default;
+
+// Background color for all of the backdrops
+$overlay-backdrop-color: rgba(0, 0, 0, 0.32) !default;
+
+// Default backdrop animation is based on the Material Design swift-ease-out.
+$backdrop-animation-duration: 400ms !default;
+$backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;

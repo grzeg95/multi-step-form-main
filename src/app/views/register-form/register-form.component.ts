@@ -9,6 +9,7 @@ import {StepComponent} from '../../features/stepper/components/step/step.compone
 import {StepperHeaderComponent} from '../../features/stepper/components/stepper-header/stepper-header.component';
 import {StepperComponent} from '../../features/stepper/components/stepper/stepper.component';
 import {StepsComponent} from '../../features/stepper/components/steps/steps.component';
+import {StepActionsDirective} from '../../features/stepper/directives/step-actions.directive';
 import {StepLabelDirective} from '../../features/stepper/directives/step-label.directive';
 import {StepperNextDirective} from '../../features/stepper/directives/stepper-next.directive';
 import {StepperPreviousDirective} from '../../features/stepper/directives/stepper-previous.directive';
@@ -41,7 +42,8 @@ import {SwitchComponent} from './switch/switch.component';
     TrueControlsPipe,
     UpperCasePipe,
     StepsComponent,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    StepActionsDirective
   ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.scss'

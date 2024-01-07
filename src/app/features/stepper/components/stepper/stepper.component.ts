@@ -1,12 +1,16 @@
 import {
+  AfterContentChecked,
   AfterContentInit,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
   effect,
   Signal,
-  signal
+  signal,
+  TemplateRef
 } from '@angular/core';
+import {StepActionsDirective} from '../../directives/step-actions.directive';
+import {StepComponent} from '../step/step.component';
 import {StepsComponent} from '../steps/steps.component';
 
 @Component({
@@ -17,12 +21,14 @@ import {StepsComponent} from '../steps/steps.component';
   styleUrl: './stepper.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StepperComponent implements AfterContentInit {
+export class StepperComponent implements AfterContentInit, AfterContentChecked {
 
   @ContentChild(StepsComponent) stepsComponent!: StepsComponent;
   _step = signal(0);
   _previousStep = signal(0);
   _size = signal(0);
+  currentStepComponent = signal<StepComponent | undefined>(undefined);
+  currentStepActionsRef = signal<TemplateRef<StepActionsDirective> | null>(null)
 
   get step(): Signal<number> {
     return this._step.asReadonly();
@@ -62,8 +68,10 @@ export class StepperComponent implements AfterContentInit {
   constructor() {
     effect(() => {
       this.stepsComponent.stepComponents.get(this._previousStep())?.hide();
-      this.stepsComponent.stepComponents.get(this.step())?.show();
-    });
+      const currentStepComponent = this.stepsComponent.stepComponents.get(this.step());
+      currentStepComponent?.show();
+      this.currentStepComponent.set(currentStepComponent);
+    }, {allowSignalWrites: true});
   }
 
   goToNextStep() {
@@ -77,5 +85,9 @@ export class StepperComponent implements AfterContentInit {
   ngAfterContentInit(): void {
     this._size.set(this.stepsComponent.stepComponents.length);
     this.stepsComponent.stepComponents.forEach((stepComponent) => stepComponent.hide());
+  }
+
+  ngAfterContentChecked(): void {
+    this.currentStepActionsRef.set(this.currentStepComponent()?.stepActionsDirective?.templateRef || null);
   }
 }

@@ -17,6 +17,7 @@
   </ng-template>
 
   <app-steps class="steps">
+
     <app-step [stepControl]="personalInfoFormGroup">
 
       <ng-template appStepLabel>Your info</ng-template>
@@ -56,7 +57,7 @@
                   <span>This field is required</span>
                 }
                 @if (phoneFormControl.errors['phone']) {
-                  <span>Provide phone address</span>
+                  <span>Provide phone number</span>
                 }
               }
             </app-input>
@@ -64,10 +65,17 @@
           </form>
         </div>
 
-        <div class="actions">
-          <div class="flex-spacer"></div>
-          <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
-        </div>
+        <ng-template appStepActions>
+          <div class="actions">
+            <div class="flex-spacer"></div>
+            <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
+          </div>
+        </ng-template>
+
+        @if (deviceService.screensSize() === 'desktop') {
+          <ng-container *ngTemplateOutlet="stepper.currentStepActionsRef()"></ng-container>
+        }
+
       </div>
 
     </app-step>
@@ -127,10 +135,17 @@
             [formControl]="form.controls.period"/>
         </div>
 
-        <div class="actions">
-          <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
-          <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
-        </div>
+        <ng-template appStepActions>
+          <div class="actions">
+            <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
+            <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
+          </div>
+        </ng-template>
+
+        @if (deviceService.screensSize() === 'desktop') {
+          <ng-container *ngTemplateOutlet="stepper.currentStepActionsRef()"></ng-container>
+        }
+
       </div>
     </app-step>
 
@@ -167,18 +182,22 @@
             [prices]="prices['customizable-profile']"/>
         </div>
 
-        <div class="actions">
-          <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
-          <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
-        </div>
+        <ng-template appStepActions>
+          <div class="actions">
+            <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
+            <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
+          </div>
+        </ng-template>
+
+        @if (deviceService.screensSize() === 'desktop') {
+          <ng-container *ngTemplateOutlet="stepper.currentStepActionsRef()"></ng-container>
+        }
+
       </div>
 
     </app-step>
 
     <app-step>
-
-      <ng-template appStepLabel>Summary</ng-template>
-
       @if(isVisibleThankYou()) {
         <div class="step" [style.justify-content]="'center'">
           <div class="body">
@@ -239,13 +258,25 @@
             </div>
           </div>
 
-          <div class="actions">
-            <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
-            <button app-button-flat (click)="isVisibleThankYou.set(true)" [small]="deviceService.screensSize() !== 'desktop'">Confirm</button>
-          </div>
+          <ng-template appStepActions>
+            <div class="actions">
+              <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
+              <button app-button-flat (click)="isVisibleThankYou.set(true)" [small]="deviceService.screensSize() !== 'desktop'">Confirm</button>
+            </div>
+          </ng-template>
+
+          @if (deviceService.screensSize() === 'desktop') {
+            <ng-container *ngTemplateOutlet="stepper.currentStepActionsRef()"></ng-container>
+          }
+
         </div>
       }
     </app-step>
+
   </app-steps>
 
 </app-stepper>
+
+@if (deviceService.screensSize() !== 'desktop') {
+  <ng-container *ngTemplateOutlet="stepper.currentStepActionsRef()"></ng-container>
+}

@@ -1,19 +1,23 @@
+import {JsonPipe} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
   ElementRef,
   Input,
-  Renderer2,
+  Renderer2, signal,
   TemplateRef
 } from '@angular/core';
 import {AbstractControl} from '@angular/forms';
+import {StepActionsDirective} from '../../directives/step-actions.directive';
 import {StepLabelDirective} from '../../directives/step-label.directive';
 
 @Component({
   selector: 'app-step',
   standalone: true,
-  imports: [],
+  imports: [
+    JsonPipe
+  ],
   templateUrl: './step.component.html',
   styleUrl: './step.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -25,6 +29,8 @@ export class StepComponent {
     read: TemplateRef,
     static: true
   }) appStepLabelTemplate: TemplateRef<any> | undefined;
+  @ContentChild(StepActionsDirective) stepActionsDirective!: StepActionsDirective;
+  isVisible = signal(false);
 
   get valid() {
 
@@ -51,10 +57,10 @@ export class StepComponent {
   }
 
   hide() {
-    this.renderer.addClass(this.el.nativeElement, 'hidden');
+    this.isVisible.set(false);
   }
 
   show() {
-    this.renderer.removeClass(this.el.nativeElement, 'hidden');
+    this.isVisible.set(true);
   }
 }
