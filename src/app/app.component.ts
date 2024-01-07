@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
       maxWidth: '947px',
       panelClass: 'register-dialog',
       hasBackdrop: false,
+      disableClose: true
     });
   }
 }
