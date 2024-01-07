@@ -1,11 +1,14 @@
-<label>
+<label [class.checked]="radio.checked">
 
   <input
     type="radio"
     [checked]="checked"
     [disabled]="isDisabled"
     [value]="value"
-    #input
+    (blur)="onTouched()"
+    (change)="onInputChange()"
+    [name]="name"
+    #radio
   />
 
   <img class="icon" [src]="icon" [alt]="priceName + 'Icon'"/>

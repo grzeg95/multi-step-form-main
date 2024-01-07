@@ -35,21 +35,19 @@ export class AddOnComponent implements ControlValueAccessor {
       return;
     }
 
-    this.checked = !this.checked;
+    this.onChanged(!this.checked);
   }
 
-  onChange(): void {
-  }
+  public regOnChange = (_: any) => {};
+
+  public regOnTouched = () => {};
 
   registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  onTouched(): void {
+    this.regOnChange = fn;
   }
 
   registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+    this.regOnTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -58,5 +56,17 @@ export class AddOnComponent implements ControlValueAccessor {
 
   writeValue(obj: any): void {
     this.checked = obj;
+  }
+
+  onChanged($event: Event | boolean) {
+
+    if (typeof $event === 'boolean') {
+      this.regOnChange($event);
+      this.writeValue($event);
+      return;
+    }
+
+    this.regOnChange(($event.target as HTMLInputElement).checked);
+    this.writeValue(($event.target as HTMLInputElement).checked);
   }
 }

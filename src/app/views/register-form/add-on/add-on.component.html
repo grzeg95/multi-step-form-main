@@ -1,5 +1,11 @@
 <div class="checkbox">
-  <input type="checkbox" [checked]="checked" [disabled]="isDisabled"/>
+  <input
+    type="checkbox"
+    (change)="onChanged($event)"
+    (blur)="regOnTouched()"
+    [checked]="checked"
+    [disabled]="isDisabled"
+  />
   <label></label>
 </div>
 
