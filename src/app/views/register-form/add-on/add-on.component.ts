@@ -1,15 +1,11 @@
-import {JsonPipe, NgOptimizedImage} from '@angular/common';
-import {AfterViewInit, Component, ElementRef, forwardRef, inject, Input, Renderer2, ViewChild} from '@angular/core';
-import {CheckboxControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
+import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, HostListener, Input} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-add-on',
   standalone: true,
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NgOptimizedImage,
-    JsonPipe
+    ReactiveFormsModule
   ],
   templateUrl: './add-on.component.html',
   styleUrl: './add-on.component.scss',
@@ -19,28 +15,48 @@ import {CheckboxControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFo
       useExisting: forwardRef(() => AddOnComponent),
       multi: true,
     }
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddOnComponent extends CheckboxControlValueAccessor implements AfterViewInit {
+export class AddOnComponent implements ControlValueAccessor {
 
-  @Input() value!: string;
   @Input({required: true}) name!: string;
   @Input({required: true}) description!: string;
   @Input({required: true}) prices!: {monthly: string, yearly: string};
   @Input({required: true}) period!: boolean | null;
 
-  @ViewChild('input') input!: ElementRef<HTMLInputElement>;
+  @HostBinding('class.checked') checked!: boolean;
+  @HostBinding('class.disabled') isDisabled!: boolean;
 
-  renderer = inject(Renderer2);
-  checked = false;
+  @HostListener('click')
+  handleOnClick() {
 
-  override writeValue(value: boolean): void {
-    super.writeValue(value);
-    this.checked = value;
-    this.input && this.renderer.setProperty(this.input.nativeElement, 'checked', this.checked);
+    if (this.isDisabled) {
+      return;
+    }
+
+    this.checked = !this.checked;
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => this.input && this.renderer.setProperty(this.input.nativeElement, 'checked', this.checked))
+  onChange(): void {
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  onTouched(): void {
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
+  }
+
+  writeValue(obj: any): void {
+    this.checked = obj;
   }
 }

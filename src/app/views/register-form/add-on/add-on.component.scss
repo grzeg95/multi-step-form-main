@@ -1,8 +1,7 @@
 @import 'mixins';
 @import 'variables';
 
-label {
-
+:host {
   margin-bottom: 12px;
   cursor: pointer;
   display: flex;
@@ -14,51 +13,50 @@ label {
   justify-content: space-between;
   align-items: center;
 
-  input {
-    display: none;
-
-    &:checked + .checker {
-      background-color: $marine-blue;
-
-      &::before {
-        content: "";
-        background-image: url(/assets/images/icon-checkmark.svg);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-      }
-    }
-  }
-
-  .checker {
-    width: 20px;
-    height: 20px;
-    border: solid 1px $light-gray;
-    cursor: pointer;
-    transition: .1s;
-    border-radius: 3px;
+  .checkbox {
     position: relative;
     margin-right: 15px;
-    flex: none;
 
-    &::before {
-      height: 10px;
-      width: 13.333333333333334px;
-      position: absolute;
-      top: 4px;
-      left: 2px;
-      transition: 0.1s;
+    input {
+      opacity: 0;
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      padding: 0;
     }
-  }
 
-  &:hover {
-    border-color: $purplish-blue;
-    background-color: $grayish-blue;
-  }
+    input:checked + label {
+      background-image: url(/assets/images/icon-checkmark.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: auto;
+      background-color: $marine-blue;
+    }
 
-  &.checked {
-    border-color: $purplish-blue;
-    background-color: $grayish-blue;
+    input:focus-visible + label:after {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      width: 100%;
+      height: 100%;
+      padding: 1px;
+      border: solid 2px $black;
+    }
+
+    label {
+      padding: 0;
+      width: 20px;
+      height: 20px;
+      border: solid 1px $light-gray;
+      cursor: pointer;
+      border-radius: 3px;
+      flex: none;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
 
   .content {
@@ -87,9 +85,17 @@ label {
     }
   }
 
+  &:hover {
+    border-color: $purplish-blue;
+    background-color: $grayish-blue;
+  }
+
+  &.checked {
+    border-color: $purplish-blue;
+    background-color: $grayish-blue;
+  }
+
   @include from-tablet {
     padding: 21px 23px;
   }
 }
-
-
