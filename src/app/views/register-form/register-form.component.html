@@ -291,6 +291,6 @@
 
 </app-stepper>
 
-@if (deviceService.screensSize() !== 'desktop') {
+@if (deviceService.screensSize() !== 'desktop' && !isVisibleThankYou()) {
   <ng-container *ngTemplateOutlet="stepper.currentStepActionsRef()"></ng-container>
 }
