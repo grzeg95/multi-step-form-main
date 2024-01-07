@@ -1,5 +1,5 @@
 @if (falseTitle) {
-  <div class="option" [class.selected]="!checked">{{ falseTitle }}</div>
+  <div class="option" [class.selected]="!checked" [attr.aria-label]="!checked ? falseTitle + ' is selected' : 'is not selected'">{{ falseTitle }}</div>
 }
 
 <div class="checkbox">
@@ -14,5 +14,5 @@
 </div>
 
 @if (trueTitle) {
-  <div class="option" [class.selected]="checked">{{ trueTitle }}</div>
+  <div class="option" [class.selected]="checked" [attr.aria-label]="checked ? trueTitle + ' is selected' : 'is not selected'">{{ trueTitle }}</div>
 }

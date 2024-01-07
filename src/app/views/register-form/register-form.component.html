@@ -1,4 +1,4 @@
-<app-stepper #stepper class="stepper">
+<app-stepper #stepper class="stepper" aria-label="Register form">
 
   <app-stepper-header class="stepper-header" #appStepHeader [customTemplate]="customHeaderTemplate" />
 
@@ -22,15 +22,15 @@
 
       <ng-template appStepLabel>Your info</ng-template>
 
-      <div class="step">
+      <div class="step" aria-label="Step 1 of 4 Personal info">
 
         <div class="body">
-          <div class="header">
+          <div class="header" aria-label="Header">
             <div class="title">Personal info</div>
             <div class="description">Please provide your name, email address, and phone number.</div>
           </div>
 
-          <form [formGroup]="personalInfoFormGroup">
+          <form [formGroup]="personalInfoFormGroup" aria-label="Personal info form">
 
             <app-input [formControl]="nameFormControl" label="Name" placeholder="e.g. Stephen King" [small]="deviceService.screensSize() !== 'desktop'">
               @if (nameFormControl.errors && nameFormControl.touched) {
@@ -66,9 +66,9 @@
         </div>
 
         <ng-template appStepActions>
-          <div class="actions">
+          <div class="actions" aria-label="Actions">
             <div class="flex-spacer"></div>
-            <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
+            <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'" aria-label="Go to next step">Go next</button>
           </div>
         </ng-template>
 
@@ -84,10 +84,10 @@
 
       <ng-template appStepLabel>Select plan</ng-template>
 
-      <div class="step">
+      <div class="step" aria-label="Step 2 of 4 Select your plan">
 
         <div class="body">
-          <div class="header">
+          <div class="header" aria-label="Header">
             <div class="title">Select your plan</div>
             <div class="description">You have the option of monthly or yearly billing.</div>
           </div>
@@ -103,6 +103,7 @@
               [yearlyDiscountDescription]="'2 months free'"
               [priceName]="'Arcade'"
               [value]="'arcade'"
+              aria-label="Plan Arcade"
             />
 
             <app-plan
@@ -114,6 +115,7 @@
               [yearlyDiscountDescription]="'2 months free'"
               [priceName]="'Advanced'"
               [value]="'advanced'"
+              aria-label="Plan Advanced"
             />
 
             <app-plan
@@ -125,6 +127,7 @@
               [yearlyDiscountDescription]="'2 months free'"
               [priceName]="'Pro'"
               [value]="'pro'"
+              aria-label="Plan Pro"
             />
           </div>
 
@@ -132,13 +135,15 @@
             class="switch"
             trueTitle="Yearly"
             falseTitle="Monthly"
-            [formControl]="form.controls.period"/>
+            [formControl]="form.controls.period"
+            aria-label="Change period of subscription"
+          />
         </div>
 
         <ng-template appStepActions>
-          <div class="actions">
-            <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
-            <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
+          <div class="actions" aria-label="Actions">
+            <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'" aria-label="Go to previous step">Go Back</button>
+            <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'" aria-label="Go to next step">Go next</button>
           </div>
         </ng-template>
 
@@ -153,9 +158,9 @@
 
       <ng-template appStepLabel>Add-ons</ng-template>
 
-      <div class="step">
+      <div class="step" aria-label="Step 3 of 4 Add-ons">
         <div class="body">
-          <div class="header">
+          <div class="header" aria-label="Header">
             <div class="title">Pick add-ons</div>
             <div class="description">Add-ons help enhance your gaming experience.</div>
           </div>
@@ -165,27 +170,33 @@
             [formControl]="addOnsFormGroup.controls['online-services']"
             [name]="'Online services'"
             [description]="'Access to multiplayer games'"
-            [prices]="prices['online-services']"/>
+            [prices]="prices['online-services']"
+            aria-label="Add-on Online services"
+          />
 
           <app-add-on
             [period]="periodFormControl.value"
             [formControl]="addOnsFormGroup.controls['larger-storage']"
             [name]="'Larger storage'"
             [description]="'Extra 1TB of cloud save'"
-            [prices]="prices['larger-storage']"/>
+            [prices]="prices['larger-storage']"
+            aria-label="Add-on Larger storage"
+          />
 
           <app-add-on
             [period]="periodFormControl.value"
             [formControl]="addOnsFormGroup.controls['customizable-profile']"
             [name]="'Customizable Profile'"
             [description]="'Custom theme on your profile'"
-            [prices]="prices['customizable-profile']"/>
+            [prices]="prices['customizable-profile']"
+            aria-label="Customizable Profile"
+          />
         </div>
 
         <ng-template appStepActions>
-          <div class="actions">
-            <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
-            <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'">Go next</button>
+          <div class="actions" aria-label="Actions">
+            <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'" aria-label="Go to previous step">Go Back</button>
+            <button app-button-flat appStepperNext [small]="deviceService.screensSize() !== 'desktop'" aria-label="Go to next step">Go next</button>
           </div>
         </ng-template>
 
@@ -202,10 +213,10 @@
       <ng-template appStepLabel>Summary</ng-template>
 
       @if(isVisibleThankYou()) {
-        <div class="step" [style.justify-content]="'center'">
+        <div class="step" [style.justify-content]="'center'" aria-label="Thank yoy">
           <div class="body">
             <div class="thank-you">
-              <img src="/assets/images/icon-thank-you.svg" />
+              <img src="/assets/images/icon-thank-you.svg" alt="Thank you icon"/>
               <div class="title">Thank you!</div>
               <div class="description">
                 Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at support&#64;loremgaming.com.
@@ -215,16 +226,16 @@
         </div>
       }
       @else {
-        <div class="step">
+        <div class="step" aria-label="Step 4 of 4 Finishing up">
 
           <div class="body">
 
-            <div class="header">
+            <div class="header" aria-label="Header">
               <div class="title">Finishing up</div>
               <div class="description">Double-check everything looks OK before confirming.</div>
             </div>
 
-            <div class="summary">
+            <div class="summary" aria-label="Summary of selected options">
               <div class="selected-plan">
                 <div class="name">
                   <div>{{ plansFormControl.value | titlecase }}({{ periodFormControl.value ? 'Yearly' : 'Monthly' }})</div>
@@ -255,16 +266,16 @@
               }
             </div>
 
-            <div class="total">
+            <div class="total" aria-label="Total price">
               <span class="title">Total (per {{periodFormControl.value ? 'year' : 'month'}})</span>
               <span class="price">${{totalPrice()}}/{{ periodFormControl.value ? 'yr' : 'mo' }}</span>
             </div>
           </div>
 
           <ng-template appStepActions>
-            <div class="actions">
-              <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'">Go Back</button>
-              <button app-button-flat (click)="isVisibleThankYou.set(true)" [small]="deviceService.screensSize() !== 'desktop'">Confirm</button>
+            <div class="actions" aria-label="Actions">
+              <button app-button appStepperPrevious [small]="deviceService.screensSize() !== 'desktop'" aria-label="Go to previous step">Go Back</button>
+              <button app-button-flat (click)="isVisibleThankYou.set(true)" [small]="deviceService.screensSize() !== 'desktop'" aria-label="Confirm">Confirm</button>
             </div>
           </ng-template>
 
