@@ -8,6 +8,7 @@ import {
   inject,
   Injector,
   Input,
+  OnInit,
   ViewChild
 } from '@angular/core';
 import {
@@ -28,16 +29,16 @@ import {
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => InputComponent),
       multi: true,
     }
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputComponent implements ControlValueAccessor {
+export class InputComponent implements ControlValueAccessor, OnInit {
 
   @HostBinding('class.small') @Input() small = false;
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
