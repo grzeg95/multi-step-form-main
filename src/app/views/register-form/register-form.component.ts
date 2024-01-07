@@ -1,4 +1,4 @@
-import {NgTemplateOutlet, TitleCasePipe, UpperCasePipe} from '@angular/common';
+import {NgTemplateOutlet, TitleCasePipe} from '@angular/common';
 import {Component, effect, signal, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import BigNumber from 'bignumber.js';
@@ -40,7 +40,6 @@ import {SwitchComponent} from './switch/switch.component';
     SwitchComponent,
     TitleCasePipe,
     TrueControlsPipe,
-    UpperCasePipe,
     StepsComponent,
     NgTemplateOutlet,
     StepActionsDirective
