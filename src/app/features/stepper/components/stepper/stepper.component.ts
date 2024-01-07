@@ -17,19 +17,25 @@ import {StepsComponent} from '../steps/steps.component';
 @Component({
   selector: 'app-stepper',
   standalone: true,
-  imports: [],
   templateUrl: './stepper.component.html',
-  styleUrl: './stepper.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StepperComponent implements AfterContentInit, AfterContentChecked {
 
-  @ContentChild(StepsComponent) stepsComponent!: StepsComponent;
-  _step = signal(0);
-  _previousStep = signal(0);
-  _size = signal(0);
-  currentStepComponent = signal<StepComponent | undefined>(undefined);
-  currentStepActionsRef = signal<TemplateRef<StepActionsDirective> | null>(null)
+  @ContentChild(StepsComponent) private stepsComponent!: StepsComponent;
+  private _step = signal(0);
+  private _previousStep = signal(0);
+  private _size = signal(0);
+  private _currentStepComponent = signal<StepComponent | undefined>(undefined);
+  private _currentStepActionsRef = signal<TemplateRef<StepActionsDirective> | null>(null)
+
+  get stepComponents() {
+    return this.stepsComponent.stepComponents;
+  }
+
+  get currentStepActionsRef() {
+    return this._currentStepActionsRef.asReadonly();
+  }
 
   get step(): Signal<number> {
     return this._step.asReadonly();
@@ -49,8 +55,8 @@ export class StepperComponent implements AfterContentInit, AfterContentChecked {
             stepComponent.updateValueAndValidity();
 
             if (!stepComponent.valid) {
+              this._previousStep.set(this.step());
               this._step.set(i);
-              this._previousStep.set(index);
               return;
             }
           }
@@ -70,10 +76,10 @@ export class StepperComponent implements AfterContentInit, AfterContentChecked {
     private el: ElementRef
   ) {
     effect(() => {
-      this.stepsComponent.stepComponents.get(this._previousStep())?.hide();
-      const currentStepComponent = this.stepsComponent.stepComponents.get(this.step());
+      this.stepComponents.get(this._previousStep())?.hide();
+      const currentStepComponent = this.stepComponents.get(this.step());
       currentStepComponent?.show();
-      this.currentStepComponent.set(currentStepComponent);
+      this._currentStepComponent.set(currentStepComponent);
     }, {allowSignalWrites: true});
   }
 
@@ -85,16 +91,16 @@ export class StepperComponent implements AfterContentInit, AfterContentChecked {
     this.setStep(this.step() - 1);
   }
 
+  scrollToTop() {
+    (this.el.nativeElement as HTMLElement).scrollTo({behavior: 'smooth', top: 0});
+  }
+
   ngAfterContentInit(): void {
-    this._size.set(this.stepsComponent.stepComponents.length);
-    this.stepsComponent.stepComponents.forEach((stepComponent) => stepComponent.hide());
+    this._size.set(this.stepComponents.length);
+    this.stepComponents.forEach((stepComponent) => stepComponent.hide());
   }
 
   ngAfterContentChecked(): void {
-    this.currentStepActionsRef.set(this.currentStepComponent()?.stepActionsDirective?.templateRef || null);
-  }
-
-  scrollToTop() {
-    (this.el.nativeElement as HTMLElement).scrollTo({behavior: 'smooth', top: 0});
+    this._currentStepActionsRef.set(this._currentStepComponent()?.stepActionsDirective?.templateRef || null);
   }
 }

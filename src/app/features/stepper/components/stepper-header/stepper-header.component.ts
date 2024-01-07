@@ -15,11 +15,15 @@ export class StepperHeaderComponent {
   @Input() customTemplate!: TemplateRef<any>;
 
   constructor(
-    @Host() public stepperComponent: StepperComponent
+    @Host() private _stepperComponent: StepperComponent
   ) {
   }
 
+  get stepperComponent() {
+    return this._stepperComponent;
+  }
+
   get labelTemplates() {
-    return this.stepperComponent.stepsComponent.stepComponents.map((stepComponent) => stepComponent.appStepLabelTemplate);
+    return this.stepperComponent.stepComponents.map((stepComponent) => stepComponent.appStepLabelTemplate);
   }
 }

@@ -1,13 +1,4 @@
-import {JsonPipe} from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ContentChild,
-  ElementRef,
-  Input,
-  Renderer2, signal,
-  TemplateRef
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ContentChild, Input, signal, TemplateRef} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {StepActionsDirective} from '../../directives/step-actions.directive';
 import {StepLabelDirective} from '../../directives/step-label.directive';
@@ -15,11 +6,7 @@ import {StepLabelDirective} from '../../directives/step-label.directive';
 @Component({
   selector: 'app-step',
   standalone: true,
-  imports: [
-    JsonPipe
-  ],
   templateUrl: './step.component.html',
-  styleUrl: './step.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StepComponent {
@@ -39,12 +26,6 @@ export class StepComponent {
     }
 
     return true;
-  }
-
-  constructor(
-    private el: ElementRef,
-    private renderer: Renderer2
-  ) {
   }
 
   updateValueAndValidity(): void {
