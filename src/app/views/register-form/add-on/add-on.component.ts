@@ -1,72 +1,114 @@
-import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, HostListener, Input} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  forwardRef,
+  HostBinding,
+  HostListener,
+  Injector,
+  Input,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormControl,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  ReactiveFormsModule
+} from '@angular/forms';
+import {CheckboxComponent} from '../../../components/checkbox/checkbox.component';
 
 @Component({
   selector: 'app-add-on',
   standalone: true,
   imports: [
+    CheckboxComponent,
+    FormsModule,
     ReactiveFormsModule
   ],
   templateUrl: './add-on.component.html',
   styleUrl: './add-on.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    class: 'app-add-on'
+  },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => AddOnComponent),
-      multi: true,
+      multi: true
     }
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ]
 })
-export class AddOnComponent implements ControlValueAccessor {
+export class AddOnComponent implements ControlValueAccessor, AfterViewInit {
+
+  private static _id = 1;
+  readonly id = 'app-add-on-id-' + AddOnComponent._id++;
 
   @Input({required: true}) name!: string;
   @Input({required: true}) description!: string;
   @Input({required: true}) prices!: {monthly: string, yearly: string};
   @Input({required: true}) period!: boolean | null;
+  @Input() @HostBinding('class.app-add-on--checked') checked = false;
+  @ViewChild('checkbox') checkbox!: CheckboxComponent;
+  formControl!: FormControl;
+  wasCheckboxClicked = false;
 
-  @HostBinding('class.checked') checked!: boolean;
-  @HostBinding('class.disabled') isDisabled!: boolean;
-
-  @HostListener('click')
-  handleOnClick() {
-
-    if (this.isDisabled) {
-      return;
-    }
-
-    this.onChanged(!this.checked);
+  constructor(
+    private injector: Injector,
+    private cdr: ChangeDetectorRef
+  ) {
   }
 
-  public regOnChange = (_: any) => {};
+  @HostListener('click', ['$event'])
+  handleOnClick($event: Event) {
 
-  public regOnTouched = () => {};
+    $event.stopPropagation();
+    const val = this.formControl.value;
+
+    if (!this.wasCheckboxClicked) {
+      this.formControl.setValue(!val);
+      this.checkbox.markForCheck();
+    }
+
+    setTimeout(() => {
+      this.checked = this.formControl.value;
+      this.wasCheckboxClicked = false;
+    });
+  }
+
+  handleClick($event: Event) {
+    this.wasCheckboxClicked = true;
+  }
+
+  ngAfterViewInit(): void {
+    try {
+      this.formControl = this.injector.get(NgControl).control as FormControl;
+      this.cdr.markForCheck();
+      this.formControl.valueChanges.subscribe((checked) => this.checked = checked);
+    } catch {
+      throw new Error('Provide form control');
+    }
+  }
+
+  public onChange = (_: any) => {
+  };
+
+  public onTouched = () => {
+  };
 
   registerOnChange(fn: any): void {
-    this.regOnChange = fn;
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
-    this.regOnTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.onTouched = fn;
   }
 
   writeValue(obj: any): void {
-    this.checked = obj;
-  }
-
-  onChanged($event: Event | boolean) {
-
-    if (typeof $event === 'boolean') {
-      this.regOnChange($event);
-      this.writeValue($event);
-      return;
-    }
-
-    this.regOnChange(($event.target as HTMLInputElement).checked);
-    this.writeValue(($event.target as HTMLInputElement).checked);
   }
 }

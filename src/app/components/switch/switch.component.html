@@ -1,0 +1,10 @@
+<input
+  type="checkbox"
+  (change)="_onChange($event)"
+  (blur)="_onTouched()"
+  (click)="_onClick($event)"
+  [checked]="checked"
+  [disabled]="isDisabled"
+  [id]="id"
+/>
+<label [for]="id"></label>

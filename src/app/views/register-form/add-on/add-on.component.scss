@@ -1,101 +1,58 @@
-@import 'mixins';
-@import 'variables';
+.app-add-on {
 
-:host {
   margin-bottom: 12px;
   cursor: pointer;
   display: flex;
   width: 100%;
-  border: solid 1px $light-gray;
+  border: solid 1px silver;
   padding: 15px;
   border-radius: 0.5rem;
-  transition: 0.4s;
   justify-content: space-between;
   align-items: center;
 
-  .checkbox {
-    position: relative;
+  &__checkbox {
     margin-right: 15px;
-
-    input {
-      opacity: 0;
-      width: 20px;
-      height: 20px;
-      margin: 0;
-      padding: 0;
-    }
-
-    input:checked + label {
-      background-image: url(/assets/images/icon-checkmark.svg);
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: auto;
-      background-color: $marine-blue;
-    }
-
-    input:focus-visible + label:after {
-      content: "";
-      position: absolute;
-      top: -3px;
-      left: -3px;
-      width: 100%;
-      height: 100%;
-      padding: 1px;
-      border: solid 2px $black;
-    }
-
-    label {
-      padding: 0;
-      width: 20px;
-      height: 20px;
-      border: solid 1px $light-gray;
-      cursor: pointer;
-      border-radius: 3px;
-      flex: none;
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
   }
 
-  .content {
+  &__content {
+
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
 
-    .price-label {
-      .name {
-        color: $marine-blue;
+    &__price-info {
+
+      &__name {
         font-weight: bold;
         margin-bottom: 6px;
       }
-      .description {
-        color: $cool-gray;
+
+      &__description {
         font-size: 0.9rem;
         font-weight: 500;
       }
     }
 
-    .price {
-      color: $marine-blue;
+    &__price {
       font-weight: 500;
       font-size: 0.9rem;
     }
   }
 
   &:hover {
-    border-color: $purplish-blue;
-    background-color: $grayish-blue;
+    border-color: darkgray;
   }
 
-  &.checked {
-    border-color: $purplish-blue;
-    background-color: $grayish-blue;
+  &--checked {
+    border-color: black;
+
+    &:hover {
+      border-color: black;
+    }
   }
 
-  @include from-tablet {
+  @media (min-width: 768px) {
     padding: 21px 23px;
   }
 }

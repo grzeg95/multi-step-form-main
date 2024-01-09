@@ -14,8 +14,6 @@ This is a solution to the [Multi-step form challenge on Frontend Mentor](https:/
   - [Continued development](#continued-development)
 - [Author](#author)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
 
 ### The challenge
@@ -75,12 +73,44 @@ export class AddOnComponent implements ControlValueAccessor
 <app-stepper #stepper class="stepper" aria-label="Register form">
 ```
 
-- Using of Angular CDK Overlay
+- Focus first invalid input when it is needed
 
-```scss
-@import './styles/cdk/overlay';
+```angular17html
+<app-step [stepControl]="personalInfoFormGroup" class="app-register-form__stepper__steps__step" aria-label="Step 1 of 4 Personal info">
+  <form appAbstractControlActions [formGroup]="personalInfoFormGroup" aria-label="Personal info form">
+```
 
-@include overlay();
+```ts
+imports: [
+  FormControlDirective
+]
+
+/////////////////////////////////
+
+@ContentChild(AbstractControlActionsDirective, {descendants: true}) abstractControlActions!: AbstractControlActionsDirective;
+
+updateValueAndValidity(): void {
+
+  if (this.stepControl) {
+    this.stepControl.updateValueAndValidity();
+    this.stepControl.markAllAsTouched();
+    
+    if (this.stepControl instanceof FormGroup) {
+      for (const [i, key] of Object.keys((this.stepControl as FormGroup).controls).entries()) {
+        if ((this.stepControl as FormGroup).controls[key].invalid) {
+          this.abstractControlActions.focus(i);
+          break;
+        }
+      }
+    }
+  }
+}
+```
+
+```ts
+imports: [
+  FormControlDirective
+]
 ```
 
 - Creating mixins in scss

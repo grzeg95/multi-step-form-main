@@ -1,14 +1,41 @@
-@import 'mixins';
+.overlay-container {
 
-.register-dialog {
-  align-self: baseline;
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  top: 0;
+  left: 0;
   height: 100%;
-  overflow: auto;
+  width: 100%;
 
-  @include from-tablet {
-    align-self: auto;
-    height: auto;
-    box-shadow: 0 4px 15px 0 hsl(229, 24%, 87%);
-    margin: 16px;
+  .overlay-wrapper {
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: 1000;
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    .overlay {
+
+      height: 100%;
+      width: 100%;
+      max-width: 974px;
+      max-height: 100%;
+      pointer-events: auto;
+
+      @media (min-width: 768px) {
+        align-self: auto;
+        height: auto;
+        box-shadow: 0 4px 15px #d6d9e6;
+        overflow: auto;
+        margin: 16px;
+      }
+    }
   }
 }

@@ -1,5 +1,4 @@
-import {Dialog} from '@angular/cdk/dialog';
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {RegisterFormComponent} from './views/register-form/register-form.component';
 
 @Component({
@@ -10,22 +9,8 @@ import {RegisterFormComponent} from './views/register-form/register-form.compone
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent implements OnInit {
-
-  constructor(
-    public dialog: Dialog,
-  ) {
-  }
-
-  ngOnInit() {
-    this.dialog.open(RegisterFormComponent, {
-      width: '100%',
-      maxWidth: '947px',
-      panelClass: 'register-dialog',
-      hasBackdrop: false,
-      disableClose: true
-    });
-  }
+export class AppComponent  {
 }

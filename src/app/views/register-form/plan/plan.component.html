@@ -1,23 +1,9 @@
-<label [class.checked]="radio.checked">
+<img class="app-plan__icon" [src]="icon" [alt]="priceName + ' Icon'"/>
 
-  <input
-    type="radio"
-    [checked]="checked"
-    [disabled]="isDisabled"
-    [value]="value"
-    (blur)="onTouched()"
-    (change)="onInputChange()"
-    [name]="name"
-    #radio
-  />
-
-  <img class="icon" [src]="icon" [alt]="priceName + 'Icon'"/>
-
-  <div class="description" aria-label="Plan information">
-    <div class="price-name" aria-label="Plan name">{{ priceName }}</div>
-    <div class="price" aria-label="Plan price">${{ prices[period ? 'yearly' : 'monthly'] }}/{{ period ? 'yr' : 'mo' }}</div>
-    @if(period) {
-      <div class="price-yearly-description" aria-label="Plan price with yearly discount">{{ yearlyDiscountDescription }}</div>
-    }
-  </div>
-</label>
+<div class="app-plan__description" aria-label="Plan information">
+  <div class="app-plan__description__price-name" aria-label="Plan name">{{ priceName }}</div>
+  <div class="app-plan__description__price" aria-label="Plan price">${{ prices[period ? 'yearly' : 'monthly'] }}/{{ period ? 'yr' : 'mo' }}</div>
+  @if(period) {
+    <div class="app-plan__description__price-yearly-discount" aria-label="Plan price with yearly discount">{{ yearlyDiscountDescription }}</div>
+  }
+</div>
