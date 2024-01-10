@@ -1,18 +1,18 @@
-<div class="checkbox">
-  <input
-    type="checkbox"
-    (change)="onChanged($event)"
-    (blur)="regOnTouched()"
-    [checked]="checked"
-    [disabled]="isDisabled"
-  />
-  <label></label>
+<div class="app-add-on__checkbox">
+  @if (formControl) {
+    <app-checkbox
+      #checkbox
+      [formControl]="formControl"
+      [checked]="formControl.value"
+      (click)="handleClick($event)"
+    />
+  }
 </div>
 
-<div class="content" aria-label="Add-on information">
-  <div class="price-label">
-    <div class="name" aria-label="Add-on name">{{ name }}</div>
-    <div class="description" aria-label="Add-on description">{{ description }}</div>
+<div class="app-add-on__content" aria-label="Add-on information">
+  <div class="app-add-on__content__price-info">
+    <div class="app-add-on__content__price-info__name" aria-label="Add-on name">{{ name }}</div>
+    <div class="app-add-on__content__price-info__description" aria-label="Add-on description">{{ description }}</div>
   </div>
-  <div class="price" aria-label="Add-on price">+${{ prices[period ? 'yearly' : 'monthly'] }}/{{ period ? 'yr' : 'mo' }}</div>
+  <div class="app-add-on__content__price" aria-label="Add-on price">+${{ prices[period ? 'yearly' : 'monthly'] }}/{{ period ? 'yr' : 'mo' }}</div>
 </div>

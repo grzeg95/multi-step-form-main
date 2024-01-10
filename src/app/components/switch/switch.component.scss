@@ -1,0 +1,57 @@
+.app-switch {
+
+  position: relative;
+  cursor: pointer;
+  display: block;
+  height: 20px;
+  width: 38px;
+
+  input {
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  input:checked + label:before {
+    transform: translateX(18px);
+  }
+
+  input:focus-visible + label::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 100%;
+    height: 100%;
+    padding: 1px;
+    border: solid 2px black;
+  }
+
+  label {
+    height: 100%;
+    width: 100%;
+    background: black;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: 0.2s;
+    border-radius: 48px;
+
+    &::before {
+      background-color: white;
+      bottom: 3px;
+      content: "";
+      height: 14px;
+      left: 3px;
+      position: absolute;
+      transition: 0.2s;
+      width: 14px;
+      border-radius: 7px;
+    }
+  }
+}

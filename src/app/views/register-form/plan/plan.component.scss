@@ -1,53 +1,45 @@
-@import 'mixins';
-@import 'variables';
-
-label {
-
-  cursor: pointer;
+.app-plan {
   display: flex;
   width: 100%;
-  border: solid 1px $light-gray;
+  border: solid 1px #cccccc;
   padding: 1rem;
   border-radius: 0.5rem;
-  transition: 0.4s;
 
-  .icon {
+  &__icon {
     margin-right: 15px;
     width: 40px;
   }
 
-  input {
-    display: none;
-  }
+  &__description {
 
-  .description {
-    .price-name {
-      color: $marine-blue;
+    &__price-name {
       font-weight: bold;
       margin-bottom: 6px;
     }
-    .price {
-      color: $cool-gray;
+
+    &__price {
       font-size: 0.9rem;
       font-weight: 500;
     }
-    .price-yearly-description {
+
+    &__price-yearly-discount {
       font-size: 0.9rem;
-      color: $marine-blue;
     }
   }
 
   &:hover {
-    border-color: $purplish-blue;
-    background-color: $grayish-blue;
+    border-color: darkgray;
   }
 
-  &.checked {
-    border-color: $purplish-blue;
-    background-color: $grayish-blue;
+  &--checked {
+    border-color: black;
+
+    &:hover {
+      border-color: black;
+    }
   }
 
-  @include from-tablet {
+  @media (min-width: 768px) {
     max-width: 137px;
     flex-direction: column;
     gap: 45px;

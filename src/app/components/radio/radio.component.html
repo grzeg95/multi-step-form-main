@@ -1,0 +1,19 @@
+<input
+  type="radio"
+  (change)="_onChange($event)"
+  (click)="_onClick($event)"
+  (blur)="_onTouched()"
+  [checked]="checked"
+  [disabled]="disabled"
+  [id]="id"
+  [value]="value"
+  [name]="name"
+  [style.opacity]="hidden ? 0 : 1"
+  [style.position]="hidden ? 'absolute' : 'relative'"
+/>
+<label
+  [for]="id"
+  [class.app-radio__label--focus-visible]="true"
+>
+  <ng-content/>
+</label>

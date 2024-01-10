@@ -1,0 +1,10 @@
+<input
+  type="checkbox"
+  (change)="_onChange($event)"
+  (click)="_onClick($event)"
+  (blur)="_onTouched()"
+  [checked]="checked"
+  [disabled]="disabled"
+  [id]="id"
+/>
+<label [for]="id"><ng-content/></label>

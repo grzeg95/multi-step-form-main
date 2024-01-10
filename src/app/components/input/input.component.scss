@@ -1,0 +1,53 @@
+.app-input {
+
+  &__label {
+
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+
+    &__value {
+    }
+
+    &__error {
+      font-weight: bold;
+    }
+  }
+
+  input {
+    width: 100%;
+    border: solid 1px silver;
+    padding: 15px 18px;
+    font-size: 1rem;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-weight: bold;
+
+    &:focus {
+      outline: none;
+      font-weight: bold;
+    }
+
+    &::placeholder {
+    }
+  }
+
+  &.ng-invalid.ng-touched {
+    input {
+    }
+  }
+
+  &--small {
+
+    input {
+      padding: 14px 17px;
+      border-radius: 4px;
+    }
+
+    .label {
+      margin-bottom: 3px;
+    }
+  }
+}

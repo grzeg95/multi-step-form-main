@@ -1,9 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
-@import 'variables';
 
-@import './styles/cdk/overlay';
+//
+// features
+//
 
-@include overlay();
+@import './app/components/checkbox/mixins';
+@import './app/components/input/mixins';
+@import './app/components/switch/mixins';
+
+//
+// register-form
+//
+
+@import './app/views/register-form/mixins';
+@import './app/views/register-form/add-on/mixins';
+@import './app/views/register-form/plan/mixins';
 
 * {
   box-sizing: border-box;
@@ -14,9 +25,15 @@ html, body {
 }
 
 body {
-  background-color: $light-blue-shade;
+  background-color: white;
   font-family: 'Ubuntu', sans-serif;
   margin: 0;
+}
+
+@mixin body($theme) {
+  body {
+    background-color: map-get($theme, 'body-background');
+  }
 }
 
 .flex-spacer {
@@ -26,17 +43,112 @@ body {
 hr {
   width: 100%;
   height: 1px;
-  background-color: hsl(231, 11%, 63%);
+  background-color: silver !important;
   margin: 12px auto;
   border: none;
 }
 
+@mixin hr($theme) {
+  hr {
+    background-color: map-get($theme, 'color-secondary') !important;
+  }
+}
+
 a {
-  color: $cool-gray;
+
   cursor: pointer;
   font-weight: 300;
 
   &:hover {
     text-decoration: underline;
   }
+}
+
+@mixin a($theme) {
+  a {
+    color: map-get($theme, 'color-secondary') !important;
+  }
+}
+
+.app-button,
+.app-button-flat {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  padding: 17px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+
+  &--small {
+    padding: 15px 17px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+}
+
+@mixin app-button($theme) {
+
+  .app-button {
+    color: map-get($theme, 'color-secondary');
+    background-color: transparent;
+
+    &:hover {
+      color: map-get($theme, 'color-primary');
+      background-color: transparent;
+    }
+
+    &:active {
+      color: map-get($theme, 'color-button-active');
+      background-color: transparent;
+    }
+  }
+}
+
+@mixin app-button-flat($theme) {
+
+  .app-button-flat {
+    color: map-get($theme, 'color-white');
+    background-color: map-get($theme, 'color-primary');
+
+    &:hover {
+      color: map-get($theme, 'color-white');
+      background-color: map-get($theme, 'color-button-active');
+    }
+
+    &:active {
+      color: map-get($theme, 'color-white');
+      background-color: map-get($theme, 'color-active');
+    }
+  }
+}
+
+// TODO color naming
+$basic-theme: (
+  color-white: hsl(0, 0%, 100%),
+  body-background: hsl(217, 100%, 97%),
+  summary-background: hsl(217, 100%, 97%),
+  border: hsl(229, 24%, 87%),
+  background-color-active: hsl(231, 100%, 99%),
+  light-blue: hsl(206, 94%, 87%),
+  pastel-blue: hsl(228, 100%, 84%),
+  color-secondary: hsl(231, 11%, 63%),
+  color-primary: hsl(213, 96%, 18%),
+  color-button-active: lighten(hsl(213, 96%, 18%), 5%),
+  color-active: hsl(243, 100%, 62%),
+  color-error: hsl(354, 84%, 57%)
+);
+
+.basic {
+  @include body($basic-theme);
+  @include hr($basic-theme);
+  @include a($basic-theme);
+  @include app-checkbox($basic-theme);
+  @include app-input($basic-theme);
+  @include app-switch($basic-theme);
+  @include app-register-form($basic-theme);
+  @include app-add-on($basic-theme);
+  @include app-plan($basic-theme);
+  @include app-button($basic-theme);
+  @include app-button-flat($basic-theme);
 }

@@ -1,33 +1,33 @@
 import {NgTemplateOutlet, TitleCasePipe} from '@angular/common';
-import {ChangeDetectionStrategy, Component, effect, signal, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, effect, signal, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import BigNumber from 'bignumber.js';
-import {ButtonFlatComponent} from '../../features/button-flat/button-flat.component';
-import {ButtonComponent} from '../../features/button/button.component';
-import {InputComponent} from '../../features/input/input.component';
-import {StepComponent} from '../../features/stepper/components/step/step.component';
-import {StepperHeaderComponent} from '../../features/stepper/components/stepper-header/stepper-header.component';
-import {StepperComponent} from '../../features/stepper/components/stepper/stepper.component';
-import {StepsComponent} from '../../features/stepper/components/steps/steps.component';
-import {StepActionsDirective} from '../../features/stepper/directives/step-actions.directive';
-import {StepLabelDirective} from '../../features/stepper/directives/step-label.directive';
-import {StepperNextDirective} from '../../features/stepper/directives/stepper-next.directive';
-import {StepperPreviousDirective} from '../../features/stepper/directives/stepper-previous.directive';
+import {InputComponent} from '../../components/input/input.component';
+import {AbstractControlActionsDirective} from '../../directives/abstract-control-actions.directive';
+import {RadioGroupComponent} from '../../components/radio-group/radio-group.component';
+import {RadioComponent} from '../../components/radio/radio.component';
+import {StepComponent} from '../../components/stepper/components/step/step.component';
+import {StepperHeaderComponent} from '../../components/stepper/components/stepper-header/stepper-header.component';
+import {StepperComponent} from '../../components/stepper/components/stepper/stepper.component';
+import {StepsComponent} from '../../components/stepper/components/steps/steps.component';
+import {StepActionsDirective} from '../../components/stepper/directives/step-actions.directive';
+import {StepLabelDirective} from '../../components/stepper/directives/step-label.directive';
+import {StepperNextDirective} from '../../components/stepper/directives/stepper-next.directive';
+import {StepperPreviousDirective} from '../../components/stepper/directives/stepper-previous.directive';
+import {SwitchComponent} from '../../components/switch/switch.component';
+import {FormControlDirective} from '../../directives/form-control.directive';
 import {DeviceService} from '../../services/device.service';
 import {getTrueControlsNames} from '../../utils/forms';
 import {TrueControlsPipe} from '../../utils/true-controls.pipe';
 import {CustomValidators} from '../../utils/validators';
 import {AddOnComponent} from './add-on/add-on.component';
 import {PlanComponent} from './plan/plan.component';
-import {SwitchComponent} from './switch/switch.component';
 
 @Component({
   selector: 'app-register-form',
   standalone: true,
   imports: [
     AddOnComponent,
-    ButtonComponent,
-    ButtonFlatComponent,
     InputComponent,
     PlanComponent,
     ReactiveFormsModule,
@@ -42,11 +42,19 @@ import {SwitchComponent} from './switch/switch.component';
     TrueControlsPipe,
     StepsComponent,
     NgTemplateOutlet,
-    StepActionsDirective
+    StepActionsDirective,
+    RadioComponent,
+    RadioGroupComponent,
+    AbstractControlActionsDirective,
+    FormControlDirective
   ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    class: 'app-register-form'
+  }
 })
 export class RegisterFormComponent {
 

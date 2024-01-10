@@ -1,0 +1,17 @@
+@mixin app-switch($theme) {
+
+  .app-switch {
+
+    label {
+      background: map-get($theme, 'color-secondary');
+
+      &::before {
+        background-color: map-get($theme, 'color-white');
+      }
+    }
+
+    input:checked + label {
+      background: map-get($theme, 'color-primary');
+    }
+  }
+}

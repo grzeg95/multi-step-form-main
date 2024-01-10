@@ -1,0 +1,17 @@
+<label [for]="id" class="app-input__label">
+  <div class="app-input__label__value">{{ label }}</div>
+  <div class="app-input__label__error" aria-label="Input errors">
+    <ng-content/>
+  </div>
+</label>
+<input
+  type="text"
+  (change)="_onChange($event)"
+  (input)="_onInput($event)"
+  (blur)="_onTouched()"
+  [disabled]="disabled"
+  [value]="value"
+  [placeholder]="placeholder"
+  [id]="id"
+  #input
+/>

@@ -1,0 +1,23 @@
+.app-radio {
+  display: block;
+  width: 100%;
+  position: relative;
+
+  label {
+    cursor: pointer;
+    display: block;
+    top: 0;
+    left: 0;
+  }
+
+  input:focus-visible + &__label--focus-visible::after {
+    content: "";
+    position: absolute;
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    top: -4px;
+    left: -5px;
+    border: solid 3px black;
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,13 @@
+@mixin app-checkbox($theme) {
+
+  .app-checkbox {
+
+    input:checked + label {
+      background-color: map-get($theme, 'color-primary');
+    }
+
+    label {
+      border: solid 1px map-get($theme, 'border');
+    }
+  }
+}

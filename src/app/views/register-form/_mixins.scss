@@ -1,0 +1,131 @@
+@mixin app-register-form($theme) {
+
+  .app-register-form {
+
+    &__stepper {
+
+      @media (min-width: 768px) {
+        background: map-get($theme, 'white');
+        box-shadow: 0 4px 15px 0 map-get($theme, 'border');
+      }
+
+      &__header {
+
+        &__content {
+
+          &__item {
+
+            &__number {
+
+              color: map-get($theme, 'white');
+              border: solid 1px map-get($theme, 'white');
+            }
+
+            &__info {
+
+              &__step {
+                color: map-get($theme, 'white');
+              }
+
+              &__description {
+                color: map-get($theme, 'white');
+              }
+            }
+
+            &--active {
+
+              &__number {
+
+                color: map-get($theme, 'color-primary');
+                border-color: map-get($theme, 'light-blue');
+                background-color: map-get($theme, 'light-blue');
+              }
+            }
+          }
+        }
+      }
+
+      &__steps {
+
+        &__step {
+
+          &__content {
+
+            background: map-get($theme, 'white');
+
+            &__body {
+
+              &__header {
+
+                &__title {
+                  color: map-get($theme, 'color-primary');
+                }
+
+                &__description {
+                  color: map-get($theme, 'color-secondary');
+                }
+              }
+
+              &__period {
+
+                background-color: #fbfbfb;
+
+                &__option {
+
+                  color: #9699ab;
+
+                  &--active {
+                    color: map-get($theme, 'color-primary');
+                  }
+                }
+              }
+
+              &__summary {
+
+                background-color: map-get($theme, 'summary-background');
+
+                &__selected-plan {
+
+                  &__name {
+                    color: map-get($theme, 'color-primary');
+                  }
+
+                  &__price {
+                    color: map-get($theme, 'color-primary');
+                  }
+                }
+                &__adds-on {
+
+                  &__add-on {
+
+                    &__title {
+                      color: map-get($theme, 'color-secondary');
+                    }
+
+                    &__price {
+                      color: map-get($theme, 'color-primary');
+                    }
+                  }
+                }
+              }
+              &__total {
+
+                &__title {
+                  color: map-get($theme, 'color-secondary');
+                }
+
+                &__price {
+                  color: map-get($theme, 'color-active');
+                }
+              }
+            }
+
+            &__actions {
+              background: map-get($theme, 'white');
+            }
+          }
+        }
+      }
+    }
+  }
+}

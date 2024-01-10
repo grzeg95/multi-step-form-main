@@ -1,0 +1,30 @@
+@mixin app-plan($theme) {
+
+  .app-plan {
+    border: solid 1px map-get($theme, 'border');
+
+    &__description {
+
+      &__price-name {
+        color: map-get($theme, 'color-primary');
+      }
+
+      &__price {
+        color: map-get($theme, 'color-secondary');
+      }
+
+      &__price-yearly-discount {
+        color: map-get($theme, 'color-primary');
+      }
+    }
+
+    &:hover {
+      border-color: map-get($theme, 'color-active');
+    }
+
+    &--checked {
+      border-color: map-get($theme, 'color-active');
+      background-color: map-get($theme, 'background-color-active');
+    }
+  }
+}
