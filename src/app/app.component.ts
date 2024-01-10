@@ -11,6 +11,9 @@ import {RegisterFormComponent} from './views/register-form/register-form.compone
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  host: {
+    class: 'app-root'
+  }
 })
 export class AppComponent  {
 }

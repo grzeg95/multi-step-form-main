@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
 
 //
+// app
+//
+
+@import './app/mixins';
+
+//
 // features
 //
 
@@ -16,6 +22,10 @@
 @import './app/views/register-form/add-on/mixins';
 @import './app/views/register-form/plan/mixins';
 
+//
+// default styles
+//
+
 * {
   box-sizing: border-box;
 }
@@ -30,12 +40,6 @@ body {
   margin: 0;
 }
 
-@mixin body($theme) {
-  body {
-    background-color: map-get($theme, 'body-background');
-  }
-}
-
 .flex-spacer {
   flex: 1 1;
 }
@@ -48,12 +52,6 @@ hr {
   border: none;
 }
 
-@mixin hr($theme) {
-  hr {
-    background-color: map-get($theme, 'color-secondary') !important;
-  }
-}
-
 a {
 
   cursor: pointer;
@@ -61,12 +59,6 @@ a {
 
   &:hover {
     text-decoration: underline;
-  }
-}
-
-@mixin a($theme) {
-  a {
-    color: map-get($theme, 'color-secondary') !important;
   }
 }
 
@@ -84,6 +76,60 @@ a {
     padding: 15px 17px;
     border-radius: 4px;
     font-size: 14px;
+  }
+}
+
+.overlay-container {
+
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  &__overlay-wrapper {
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: 1000;
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    &__overlay {
+
+      height: 100%;
+      width: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      pointer-events: auto;
+    }
+  }
+}
+
+//
+// default styles mixins
+//
+
+@mixin hr($theme) {
+  hr {
+    background-color: map-get($theme, 'color-secondary') !important;
+  }
+}
+
+@mixin body($theme) {
+  background-color: map-get($theme, 'body-background');
+}
+
+@mixin a($theme) {
+  a {
+    color: map-get($theme, 'color-secondary') !important;
   }
 }
 
@@ -123,6 +169,10 @@ a {
   }
 }
 
+//
+// themes
+//
+
 // TODO color naming
 $basic-theme: (
   color-white: hsl(0, 0%, 100%),
@@ -139,16 +189,21 @@ $basic-theme: (
   color-error: hsl(354, 84%, 57%)
 );
 
+//
+// themes injections
+//
+
 .basic {
   @include body($basic-theme);
   @include hr($basic-theme);
   @include a($basic-theme);
+  @include app($basic-theme);
+  @include app-button($basic-theme);
+  @include app-button-flat($basic-theme);
   @include app-checkbox($basic-theme);
   @include app-input($basic-theme);
   @include app-switch($basic-theme);
   @include app-register-form($basic-theme);
   @include app-add-on($basic-theme);
   @include app-plan($basic-theme);
-  @include app-button($basic-theme);
-  @include app-button-flat($basic-theme);
 }
