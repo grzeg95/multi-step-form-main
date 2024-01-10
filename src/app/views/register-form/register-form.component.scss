@@ -198,13 +198,14 @@
               gap: 24px;
               padding: 19px;
               margin-top: 24px;
+              border-radius: 6px;
 
               &__option {
                 font-weight: 700;
                 color: #9699ab;
 
                 &--active {
-                  color: #02295a;
+                  color: #575757;
                 }
               }
 
@@ -332,6 +333,7 @@
             justify-content: space-between;
             padding: 16px;
             background: white;
+            box-shadow: 0 4px 15px #e5e5e5;
 
             @media (min-width: 768px) {
               position: static;

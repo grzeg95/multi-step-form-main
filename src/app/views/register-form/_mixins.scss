@@ -73,11 +73,11 @@
 
               &__period {
 
-                background-color: #fbfbfb;
+                background-color: map-get($theme, 'background-color-active');
 
                 &__option {
 
-                  color: #9699ab;
+                  color: map-get($theme, 'color-secondary');
 
                   &--active {
                     color: map-get($theme, 'color-primary');
@@ -113,6 +113,7 @@
                   }
                 }
               }
+
               &__total {
 
                 &__title {
