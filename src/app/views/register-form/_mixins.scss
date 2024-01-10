@@ -128,6 +128,11 @@
 
             &__actions {
               background: map-get($theme, 'white');
+              box-shadow: 0 4px 15px map-get($theme, 'border');
+
+              @media (min-width: 768px) {
+                box-shadow: none;
+              }
             }
           }
         }
