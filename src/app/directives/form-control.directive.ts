@@ -12,6 +12,13 @@ export class FormControlDirective {
   }
 
   focus() {
-    this.el.nativeElement.click();
+
+    const tagName = (this.el.nativeElement as HTMLElement).tagName;
+
+    if (tagName === 'INPUT' || tagName === 'TEXTAREA') {
+      this.el.nativeElement.focus();
+    } else {
+      this.el.nativeElement.click();
+    }
   }
 }
