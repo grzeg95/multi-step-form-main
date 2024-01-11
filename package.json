@@ -18,6 +18,7 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
+    "@grzeg95/angular-lib-theme-selector": "^17.0.0",
     "bignumber.js": "^9.1.2",
     "google-libphonenumber": "^3.2.33",
     "rxjs": "~7.8.0",
