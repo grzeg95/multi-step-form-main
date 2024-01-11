@@ -43,14 +43,20 @@ Users should be able to:
 
 ### Built with
 
-- Semantic HTML5 markup
-- SCSS custom properties
-- Flexbox
-- Mobile-first workflow
+- Firebase hosting:github
 - [Angular 17](https://angular.dev/)
-- [Angular CDK](https://material.angular.io/cdk/)
+- SASS Theme
+- Flexbox
+- CSS BEM
+- Mobile-first workflow
 
 ### What I learned
+
+- use of own Angular library
+
+```json
+"@grzeg95/angular-lib-theme-selector": "^17.0.0"
+```
 
 - ngTemplateOutlet
 
@@ -67,7 +73,6 @@ export class AddOnComponent implements ControlValueAccessor
 ```
 
 - Stepper implementation
-- Using of aria-label
 
 ```angular17html
 <app-stepper #stepper class="stepper" aria-label="Register form">
@@ -111,14 +116,6 @@ updateValueAndValidity(): void {
 imports: [
   FormControlDirective
 ]
-```
-
-- Creating mixins in scss
-
-```scss
-@mixin button() { ... }
-
-@include button;
 ```
 
 ### Continued development
