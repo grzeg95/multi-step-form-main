@@ -5,7 +5,7 @@
   <ng-template #customHeaderTemplate>
     <div class="app-register-form__stepper__header__content">
       @for (headerLabelTemplate of appStepHeader.labelTemplates; let i = $index; track headerLabelTemplate) {
-        <div class="app-register-form__stepper__header__content__item" (click)="stepper.setStep(i)">
+        <div class="app-register-form__stepper__header__content__item" (click)="stepper.setStep(i)" (keydown)="$event.preventDefault(); $event.stopPropagation();" [attr.tabindex]="0">
           <div class="app-register-form__stepper__header__content__item__number" [class.app-register-form__stepper__header__content__item--active__number]="i === stepper.step()">{{ i + 1 }}</div>
           <div class="app-register-form__stepper__header__content__item__info">
             <div class="app-register-form__stepper__header__content__item__info__step">Step {{ i + 1 }}</div>
@@ -258,7 +258,7 @@
               <div class="app-register-form__stepper__steps__step__content__body__summary__selected-plan">
                 <div class="app-register-form__stepper__steps__step__content__body__summary__selected-plan__name">
                   <div>{{ plansFormControl.value | titlecase }}({{ periodFormControl.value ? 'Yearly' : 'Monthly' }})</div>
-                  <a (click)="stepper.setStep(1)">Change</a>
+                  <a (click)="stepper.setStep(1)" (keydown)="$event.preventDefault(); $event.stopPropagation();" [attr.tabindex]="0">Change</a>
                 </div>
                 <div class="app-register-form__stepper__steps__step__content__body__summary__selected-plan__price">
                   ${{ prices[form.controls.plans.value || ''][periodFormControl.value ? 'yearly' : 'monthly'] }}/{{ periodFormControl.value ? 'yr' : 'mo' }}

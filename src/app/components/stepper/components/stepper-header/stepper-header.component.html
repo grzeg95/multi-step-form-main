@@ -1,7 +1,7 @@
 <ng-template #defaultTemplate>
   <div class="header">
     @for (labelTemplate of labelTemplates; let i = $index; track labelTemplate) {
-      <div class="item" [class.active]="i === stepperComponent.step()" (click)="stepperComponent.setStep(i)">
+      <div class="item" [class.active]="i === stepperComponent.step()" (click)="stepperComponent.setStep(i)" (keydown)="$event.preventDefault(); $event.stopPropagation();" [attr.tabindex]="0">
         <div class="number">{{ i + 1 }}</div>
         @if (labelTemplate) {
           <div class="title">
